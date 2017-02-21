@@ -54,4 +54,31 @@ class AlumnoController extends Controller
             'formulario' => $form->createView()
         ]);
     }
+
+    /**
+     * @Route("/alumnado/nuevo", name="nuevo_alumno")
+     */
+    public function nuevoAlumnoAction(Request $request)
+    {
+        $alumno = new Alumno();
+
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+
+        $em->persist($alumno);
+
+        $form = $this->createForm(AlumnoType::class, $alumno);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->flush();
+            return $this->redirectToRoute('listar_alumnado');
+        }
+
+        return $this->render('alumno/form.html.twig', [
+            'alumno' => $alumno,
+            'formulario' => $form->createView()
+        ]);
+    }
 }

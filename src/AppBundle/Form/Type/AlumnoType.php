@@ -14,9 +14,13 @@ class AlumnoType extends AbstractType
         $builder
             ->add('nombre')
             ->add('apellidos')
-            ->add('fechaNacimiento')
+            ->add('fechaNacimiento', null, [
+                'widget' => 'single_text'
+            ])
             ->add('grupo')
-            ->add('observaciones');
+            ->add('observaciones', null, [
+                'required' => false
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
