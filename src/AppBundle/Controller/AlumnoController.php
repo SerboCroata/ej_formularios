@@ -34,38 +34,18 @@ class AlumnoController extends Controller
     }
 
     /**
+     * @Route("/alumnado/nuevo", name="nuevo_alumno")
      * @Route("/alumnado/modificar/{id}", name="modificar_alumno")
      */
-    public function formAlumnoAction(Request $request, Alumno $alumno)
+    public function formAlumnoAction(Request $request, Alumno $alumno = null)
     {
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
 
-        $form = $this->createForm(AlumnoType::class, $alumno);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em->flush();
+        if (null == $alumno) {
+            $alumno = new Alumno();
+            $em->persist($alumno);
         }
-
-        return $this->render('alumno/form.html.twig', [
-            'alumno' => $alumno,
-            'formulario' => $form->createView()
-        ]);
-    }
-
-    /**
-     * @Route("/alumnado/nuevo", name="nuevo_alumno")
-     */
-    public function nuevoAlumnoAction(Request $request)
-    {
-        $alumno = new Alumno();
-
-        /** @var EntityManager $em */
-        $em = $this->getDoctrine()->getManager();
-
-        $em->persist($alumno);
 
         $form = $this->createForm(AlumnoType::class, $alumno);
 
@@ -81,4 +61,5 @@ class AlumnoController extends Controller
             'formulario' => $form->createView()
         ]);
     }
+
 }
