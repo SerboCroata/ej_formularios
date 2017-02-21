@@ -53,6 +53,7 @@ class AlumnoController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em->flush();
+            $this->addFlash('estado', 'Cambios guardados con éxito');
             return $this->redirectToRoute('listar_alumnado');
         }
 
