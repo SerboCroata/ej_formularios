@@ -7,6 +7,7 @@ use AppBundle\Form\Type\AlumnoType;
 use Doctrine\ORM\EntityManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 
 class AlumnoController extends Controller
@@ -52,9 +53,15 @@ class AlumnoController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em->flush();
-            $this->addFlash('estado', 'Cambios guardados con éxito');
-            return $this->redirectToRoute('listar_alumnado');
+            try {
+                $em->flush();
+                $this->addFlash('estado', 'Cambios guardados con éxito');
+                return $this->redirectToRoute('listar_alumnado');
+            }
+            catch(Exception $e) {
+                $this->addFlash('error', 'No se han podido guardar los cambios');
+            }
+
         }
 
         return $this->render('alumno/form.html.twig', [
