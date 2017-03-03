@@ -35,8 +35,8 @@ class AlumnoController extends Controller
     }
 
     /**
-     * @Route("/alumnado/nuevo", name="nuevo_alumno")
-     * @Route("/alumnado/modificar/{id}", name="modificar_alumno")
+     * @Route("/alumnado/nuevo", name="nuevo_alumno", methods={"GET", "POST"})
+     * @Route("/alumnado/modificar/{id}", name="modificar_alumno", methods={"GET", "POST"})
      */
     public function formAlumnoAction(Request $request, Alumno $alumno = null)
     {
@@ -70,4 +70,39 @@ class AlumnoController extends Controller
         ]);
     }
 
+    /**
+     * @Route("/alumnado/eliminar/{id}", name="borrar_alumnado", methods={"GET"})
+     */
+    public function borrarAction(Alumno $alumno)
+    {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+
+        return $this->render('alumno/borrar.html.twig', [
+            'alumno' => $alumno
+        ]);
+    }
+
+    /**
+     * @Route("/alumnado/eliminar/{id}", name="confirmar_borrar_alumnado", methods={"POST"})
+     */
+    public function borrarDeVerdadAction(Alumno $alumno)
+    {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+
+        try {
+            foreach($alumno->getPartes() as $parte) {
+                $em->remove($parte);
+            }
+            $em->remove($alumno);
+            $em->flush();
+            $this->addFlash('estado', 'Alumno eliminado con éxito');
+        }
+        catch(Exception $e) {
+            $this->addFlash('error', 'No se han podido eliminar');
+        }
+
+        return $this->redirectToRoute('listar_alumnado');
+    }
 }
