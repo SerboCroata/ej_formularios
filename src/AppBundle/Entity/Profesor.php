@@ -27,6 +27,12 @@ class Profesor
      * @ORM\Column(type="string")
      * @var string
      */
+    private $clave;
+
+    /**
+     * @ORM\Column(type="string")
+     * @var string
+     */
     private $nombre;
 
     /**
@@ -49,6 +55,12 @@ class Profesor
      * @ORM\ManyToMany(targetEntity="Grupo", inversedBy="profesorado")
      */
     private $grupos;
+
+    /**
+     * @ORM\Column(type="boolean")
+     * @var bool
+     */
+    private $administrador;
 
     /**
      * Convierte el profesor en una cadena de texto
@@ -239,5 +251,53 @@ class Profesor
     public function getGrupos()
     {
         return $this->grupos;
+    }
+
+    /**
+     * Set clave
+     *
+     * @param string $clave
+     *
+     * @return Profesor
+     */
+    public function setClave($clave)
+    {
+        $this->clave = $clave;
+
+        return $this;
+    }
+
+    /**
+     * Get clave
+     *
+     * @return string
+     */
+    public function getClave()
+    {
+        return $this->clave;
+    }
+
+    /**
+     * Set administrador
+     *
+     * @param boolean $administrador
+     *
+     * @return Profesor
+     */
+    public function setAdministrador($administrador)
+    {
+        $this->administrador = $administrador;
+
+        return $this;
+    }
+
+    /**
+     * Get administrador
+     *
+     * @return boolean
+     */
+    public function isAdministrador()
+    {
+        return $this->administrador;
     }
 }
