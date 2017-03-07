@@ -25,5 +25,13 @@ security:
             # http_basic: ~
             # http://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
 
-            # form_login: ~
+            form_login:
+              login_path: entrar
+              check_path: comprobar
+
+            logout:
+              path: salir
+              target: inicio
+
+
             # http://symfony.com/doc/current/cookbook/security/form_login_setup.html

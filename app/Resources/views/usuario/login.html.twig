@@ -1,0 +1,9 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <form method="post" action="{{ path('comprobar') }}">
+        <input type="text" name="_username" required="required" placeholder="Introduzca DNI">
+        <input type="password" name="_password" required="required" placeholder="Introduzca contraseña">
+        <button type="submit">Entrar en la aplicación</button>
+    </form>
+{% endblock %}
