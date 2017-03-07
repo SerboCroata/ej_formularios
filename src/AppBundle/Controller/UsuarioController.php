@@ -13,8 +13,12 @@ class UsuarioController extends Controller
      */
     public function indexAction()
     {
+        $helper = $this->get('security.authentication_utils');
+
         // replace this example code with whatever you need
-        return $this->render('usuario/login.html.twig');
+        return $this->render('usuario/login.html.twig', [
+            'error' => $helper->getLastAuthenticationError()
+        ]);
     }
 
     /**
