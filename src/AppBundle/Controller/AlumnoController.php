@@ -6,6 +6,7 @@ use AppBundle\Entity\Alumno;
 use AppBundle\Form\Type\AlumnoType;
 use Doctrine\ORM\EntityManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
@@ -72,6 +73,7 @@ class AlumnoController extends Controller
 
     /**
      * @Route("/alumnado/eliminar/{id}", name="borrar_alumnado", methods={"GET"})
+     * @Security("is_granted('ROLE_ADMIN')")
      */
     public function borrarAction(Alumno $alumno)
     {
@@ -85,6 +87,7 @@ class AlumnoController extends Controller
 
     /**
      * @Route("/alumnado/eliminar/{id}", name="confirmar_borrar_alumnado", methods={"POST"})
+     * @Security("is_granted('ROLE_ADMIN')")
      */
     public function borrarDeVerdadAction(Alumno $alumno)
     {
