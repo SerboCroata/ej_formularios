@@ -1,0 +1,7 @@
+
+form.nombre: Nombre
+form.apellidos: Apellidos
+form.dni: DNI completo
+form.administrador: ¿Es administrador?
+
+form.guardar: Guardar los cambios
