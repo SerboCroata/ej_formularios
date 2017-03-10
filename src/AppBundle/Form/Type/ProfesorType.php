@@ -23,7 +23,8 @@ class ProfesorType extends AbstractType
                 'label' => 'form.dni'
             ])
             ->add('administrador', null, [
-                'label' => 'form.administrador'
+                'label' => 'form.administrador',
+                'disabled' => ($options['es_admin'] === false)
             ]);
     }
 
@@ -31,7 +32,8 @@ class ProfesorType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Profesor::class,
-            'translation_domain' => 'profesor'
+            'translation_domain' => 'profesor',
+            'es_admin' => false
         ]);
     }
 }

@@ -34,7 +34,11 @@ class UsuarioController extends Controller
      */
     public function cambiarPerfilAction(Request $request) {
         $usuario = $this->getUser();
-        $form = $this->createForm(ProfesorType::class, $usuario);
+
+        $form = $this->createForm(ProfesorType::class, $usuario, [
+            'es_admin' => $this->isGranted('ROLE_ADMIN')
+        ]);
+
         $form->handleRequest($request);
 
         if ($form->isValid() && $form->isSubmitted()) {
