@@ -6,6 +6,7 @@ use AppBundle\Entity\Alumno;
 use AppBundle\Entity\Profesor;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
@@ -36,11 +37,14 @@ class ProfesorType extends AbstractType
                     new UserPassword()
                 ]
             ])
-            ->add('nueva', PasswordType::class, [
-                'label' => 'form.clave_nueva',
+            ->add('nueva', RepeatedType::class, [
                 'mapped' => false,
-                'constraints' => [
-                    new Length(['min' => 6])
+                'type' => PasswordType::class,
+                'first_options' => [
+                    'label' => 'form.clave_nueva',
+                ],
+                'second_options' => [
+                    'label' => 'form.clave_nueva_repetir'
                 ]
             ]);
     }

@@ -44,7 +44,7 @@ class UsuarioController extends Controller
         if ($form->isValid() && $form->isSubmitted()) {
 
             $clave = $this->get('security.password_encoder')
-                ->encodePassword($usuario, $form->get('nueva')->getData());
+                ->encodePassword($usuario, $form->get('nueva')->get('first')->getData());
 
             $usuario->setClave($clave);
             $this->getDoctrine()->getManager()->flush();

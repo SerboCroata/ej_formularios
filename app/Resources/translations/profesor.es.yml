@@ -5,5 +5,6 @@ form.dni: DNI completo
 form.administrador: ¿Es administrador?
 form.clave_antigua: Contraseña actual
 form.clave_nueva: Contraseña nueva
+form.clave_nueva_repetir: Repita la nueva contraseña
 
 form.guardar: Guardar los cambios
