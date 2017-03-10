@@ -3,5 +3,7 @@ form.nombre: Nombre
 form.apellidos: Apellidos
 form.dni: DNI completo
 form.administrador: ¿Es administrador?
+form.clave_antigua: Contraseña actual
+form.clave_nueva: Contraseña nueva
 
 form.guardar: Guardar los cambios

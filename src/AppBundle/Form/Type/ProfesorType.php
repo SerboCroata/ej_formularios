@@ -5,8 +5,11 @@ namespace AppBundle\Form\Type;
 use AppBundle\Entity\Alumno;
 use AppBundle\Entity\Profesor;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
+use Symfony\Component\Validator\Constraints\Length;
 
 class ProfesorType extends AbstractType
 {
@@ -25,6 +28,20 @@ class ProfesorType extends AbstractType
             ->add('administrador', null, [
                 'label' => 'form.administrador',
                 'disabled' => ($options['es_admin'] === false)
+            ])
+            ->add('antigua', PasswordType::class, [
+                'label' => 'form.clave_antigua',
+                'mapped' => false,
+                'constraints' => [
+                    new UserPassword()
+                ]
+            ])
+            ->add('nueva', PasswordType::class, [
+                'label' => 'form.clave_nueva',
+                'mapped' => false,
+                'constraints' => [
+                    new Length(['min' => 6])
+                ]
             ]);
     }
 
@@ -33,7 +50,8 @@ class ProfesorType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Profesor::class,
             'translation_domain' => 'profesor',
-            'es_admin' => false
+            'es_admin' => false,
+            'el_mismo' => false
         ]);
     }
 }
