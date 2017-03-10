@@ -43,10 +43,15 @@ class UsuarioController extends Controller
 
         if ($form->isValid() && $form->isSubmitted()) {
 
-            $clave = $this->get('security.password_encoder')
-                ->encodePassword($usuario, $form->get('nueva')->get('first')->getData());
+            $claveFormulario = $form->get('nueva')->get('first')->getData();
 
-            $usuario->setClave($clave);
+            if ($claveFormulario) {
+                $clave = $this->get('security.password_encoder')
+                    ->encodePassword($usuario, $claveFormulario);
+
+                $usuario->setClave($clave);
+            }
+
             $this->getDoctrine()->getManager()->flush();
         }
         return $this->render('usuario/perfil.html.twig', [

@@ -29,14 +29,20 @@ class ProfesorType extends AbstractType
             ->add('administrador', null, [
                 'label' => 'form.administrador',
                 'disabled' => ($options['es_admin'] === false)
-            ])
-            ->add('antigua', PasswordType::class, [
-                'label' => 'form.clave_antigua',
-                'mapped' => false,
-                'constraints' => [
-                    new UserPassword()
-                ]
-            ])
+            ]);
+
+        if (false === $options['es_admin']) {
+            $builder
+                ->add('antigua', PasswordType::class, [
+                    'label' => 'form.clave_antigua',
+                    'mapped' => false,
+                    'constraints' => [
+                        new UserPassword()
+                    ]
+            ]);
+        }
+
+        $builder
             ->add('nueva', RepeatedType::class, [
                 'mapped' => false,
                 'type' => PasswordType::class,
