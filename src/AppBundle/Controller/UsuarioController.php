@@ -18,6 +18,7 @@ class UsuarioController extends Controller
 
         // replace this example code with whatever you need
         return $this->render('usuario/login.html.twig', [
+            'ultimo_usuario' => $helper->getLastUsername(),
             'error' => $helper->getLastAuthenticationError()
         ]);
     }
@@ -55,7 +56,6 @@ class UsuarioController extends Controller
             $this->getDoctrine()->getManager()->flush();
         }
         return $this->render('usuario/perfil.html.twig', [
-
             'form' => $form->createView()
         ]);
     }
